@@ -1,43 +1,38 @@
-const getRandomNumberInt = function (min, max) {
-  if (max <= min) {
-    return 'Ошибка: максимальное значениение больше или равно минимальному.';
-  }
-  if (min < 0) {
-    return 'Ошибка: минимальное значение меньше ноля.';
-  }
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-  // алгоритм функции взял тут: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-};
+// const getRandomNumberInt = function (value1, value2) {
+//   const low = Math.ceil(Math.min(Math.abs(value1), Math.abs(value2)));
+//   const hight = Math.floor(Math.min(Math.abs(value1), Math.abs(value2)));
+//   return Math.floor(Math.random() * (hight - low + 1)) + low;
+//   // алгоритм функции взял тут: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+// };
 
-getRandomNumberInt(10, 100);
+// getRandomNumberInt(10, 100);
 
-const getRandomNumberFloat = function (min, max, float) {
-  float = float || 0;
-  // Если принимаем параметры от пользователя - я бы написал так, чтобы понятнее было в чем ошибка;
-  /* if (max <= min) {
-  //   return 'Ошибка: максимальное значениение больше или равно минимальному.';
-  // }
-  // if (min < 0) {
-  //   return 'Ошибка: минимальное значение меньше ноля.';
-      } */
-  if ((max <= min) || (min < 0)) { return 'Ошибка: недопустимый диапазон';
-  }// условие, если принимаем параметры независимо от пользователя, просто чтобы было сообщение об ошибке;
-  const result = Math.random() * (max - min + Math.pow(10, -float)) + min;
-  return Math.floor(result * Math.pow(10, float)) / Math.pow(10, float);
-  //return +result.toFixed(float); Изначально хотел применить данный метод, но браузер округлял результат.
-  //и в принимаемых ниже параметрах результат мог получиться 1.192.
-  //-------------------------------------------------------------------------------------------------------
-  // const result = Math.random() * (max - min + Math.pow(10, -float)) + min;
-  // return ((max <= min) || (min < 0))
-  //   ? 'Ошибка: недопустимый диапазон'
-  //   : Math.floor(result * Math.pow(10, float)) / Math.pow(10, float);
-  // Можно так было бы избавиться от оператора if, заменив его тернальным оператором,
-  // но при этом вычисления начинаются уже до проверки условия и лишний раз будут нагружать железо.
-  // при этом в критерии Д17 требуется по возможности использовать тернальный оператор.
-  // Не подскажешь, как правильно сделать?
-};
+// const getRandomNumberFloat = function (value1, value2, float = 0) {
+//   const low = Math.min(Math.abs(value1), Math.abs(value2)));
+//   const hight = Math.min(Math.abs(value1), Math.abs(value2)));
+//   const result = Math.random() * (hight - low + Math.pow(10, -float)) + low;
+//   return Math.floor(result * Math.pow(10, float)) / Math.pow(10, float);
+// };
 
-getRandomNumberFloat(1.19, 1.191, 3);
+// getRandomNumberFloat(2,1,5);
 
+function getRandomPositiveFloat (a, b, digits = 1) {
+  // Чтобы не заставлять пользователя нашей функции помнить порядок аргументов,
+  // реализуем поддержку передачи минимального и максимального значения в любом порядке,
+  // а какое из них большее и меньшее вычислим с помощью Math.min и Math.max
+  const lower = Math.min(Math.abs(a), Math.abs(b));
+  const upper = Math.max(Math.abs(a), Math.abs(b));
+  // Обратите внимание, чтобы учесть условие, что диапазон может быть [0, ∞),
+  // мы не ругаем пользователя за переданное отрицательное число,
+  // а просто берём его по модулю с помощью Math.abs
+
+  // Дальше используем Math.random() для получения случайного дробного числа в диапазоне [0, 1),
+  // которое домножаем на разницу между переданными числами - это будет наша случайная дельта.
+  // После нужно сложить дельту с минимальным значением, чтобы получить итоговое случайное число.
+  const result = Math.random() * (upper - lower) + lower;
+
+  // И в конце с помощью метода toFixed любого числа в JavaScript
+  // указать требуемое количество знаков после точки
+  return result.toFixed(digits);
+}
+console.log(getRandomPositiveFloat(1.9, 1.91, 6));
