@@ -44,13 +44,15 @@ let avatarImgNumber = 1;
 
 const getRandomArrayElement = (elements) => elements[getRandomNumberInt(0,elements.length-1)];  //Случайные элементы из массива
 
-const getRandomArrayNonRepeat = (elements) => {                                                    //Массив случайной длины с неповторяющимися элементами
-  const arrayNonRepeat = new Array(getRandomNumberInt(0,elements.length-1)).fill(null);            // Как-то кривоватое исполнение, но только так придумал.
-  const sortArrayNonRepeat = new Array();  // тут объявлал через let, но линт ругается, хотя вроде массив мы меняем потом.
+const getRandomArrayNonRepeat = (elements) => {                                                 //Массив случайной длины с неповторяющимися элементами
+  const arrayNonRepeat = new Array(getRandomNumberInt(0,elements.length-1)).fill(null);
+  const sortArrayNonRepeat = new Array();
+  // eslint-disable-next-line id-length
   for (let i=0; i<=arrayNonRepeat.length-1; i++) {
     const random = getRandomArrayElement(elements);
     arrayNonRepeat[i] = (arrayNonRepeat.every((value) => value!==random)) ? random : 0;
   }
+  // eslint-disable-next-line id-length
   for (let j=0; j<=arrayNonRepeat.length-1; j++) {
     if (arrayNonRepeat[j]!==0) {
       sortArrayNonRepeat.push(arrayNonRepeat[j]);
@@ -59,11 +61,10 @@ const getRandomArrayNonRepeat = (elements) => {                                 
   return sortArrayNonRepeat;
 };
 
-const getImgAvatarNumber = () => (avatarImgNumber<=8) ? `img/avatars/user0${avatarImgNumber++}.png` : ''; //Номер фото
-
-const offerPhoto = new Array(getRandomNumberInt(0,10)).fill(null).map(() => getRandomArrayElement(PHOTOS)); // в ТЗ массив случайной длинны, но поставил до 10. больше как-то многовато
+const getImgAvatarNumber = () => (avatarImgNumber<=10) ? `img/avatars/user0${avatarImgNumber++}.png` : ''; //Номер фото
 
 const createOfferNiarby = () => {
+  const offerPhoto = new Array(getRandomNumberInt(0,10)).fill(null).map(() => getRandomArrayElement(PHOTOS));
   const author = new Object();
   author.avatar = getImgAvatarNumber();
   const location = new Object();
