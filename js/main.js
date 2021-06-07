@@ -47,17 +47,13 @@ const getRandomArrayElement = (elements) => elements[getRandomNumberInt(0,elemen
 const getRandomArrayNonRepeat = (elements) => {                                                 //Массив случайной длины с неповторяющимися элементами
   const arrayNonRepeat = new Array(getRandomNumberInt(0,elements.length-1)).fill(null);
   const sortArrayNonRepeat = new Array();
-  // eslint-disable-next-line id-length
-  for (let i=0; i<=arrayNonRepeat.length-1; i++) {
+  arrayNonRepeat.forEach((value1, index) => {
     const random = getRandomArrayElement(elements);
-    arrayNonRepeat[i] = (arrayNonRepeat.every((value) => value!==random)) ? random : 0;
-  }
-  // eslint-disable-next-line id-length
-  for (let j=0; j<=arrayNonRepeat.length-1; j++) {
-    if (arrayNonRepeat[j]!==0) {
-      sortArrayNonRepeat.push(arrayNonRepeat[j]);
+    arrayNonRepeat[index] = (arrayNonRepeat.every((value) => value!==random)) ? random : 0;
+    if (arrayNonRepeat[index]!==0) {
+      sortArrayNonRepeat.push(arrayNonRepeat[index]);
     }
-  }
+  });
   return sortArrayNonRepeat;
 };
 
@@ -89,4 +85,3 @@ const createOfferNiarby = () => {
 const similarOfferNiarby = new Array(OFFER_NIARBY_COUNT).fill(null).map(() => createOfferNiarby()); //создает массив объектов
 
 similarOfferNiarby;
-
