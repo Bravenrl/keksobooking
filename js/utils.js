@@ -23,7 +23,7 @@ const getRandomArrayNonRepeat = (elements) => {                                 
   const sortArrayNonRepeat = new Array();
   arrayNonRepeat.forEach((value1, index) => {
     const random = getRandomArrayElement(elements);
-    arrayNonRepeat[index] = (arrayNonRepeat.every((value) => value!==random)) ? random : 0;
+    arrayNonRepeat[index] = (arrayNonRepeat.includes(random)) ? 0 : random;
     if (arrayNonRepeat[index]!==0) {
       sortArrayNonRepeat.push(arrayNonRepeat[index]);
     }

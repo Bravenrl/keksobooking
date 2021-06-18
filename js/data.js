@@ -53,7 +53,7 @@ const createOfferNiarby = () => {
   return {author, offer, location};
 };
 
-const similarOfferNiarby = new Array(OFFER_NIARBY_COUNT).fill(null).map(() => createOfferNiarby()); //создает массив объектов
+const similarOffersNiarby = new Array(OFFER_NIARBY_COUNT).fill(null).map(() => createOfferNiarby()); //создает массив объектов
 
 
-export {similarOfferNiarby};
+export {similarOffersNiarby};
