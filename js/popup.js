@@ -65,8 +65,11 @@ similarOffersNiarby.forEach(({author, offer}) => {
 
   //добавляет фото
   offer.photos.forEach ((item) => {
-    popupPhotos.insertAdjacentHTML('beforeend', `<img src = ${item}>`);
+    const popupPhoto = popupPhotos.querySelector('.popup__photo').cloneNode(true);
+    popupPhoto.src = item;
+    popupPhotos.appendChild(popupPhoto);
   });
+  popupPhotos.firstElementChild.remove();
 
   checkingDataAvailability();
   similarOfferFragment.appendChild(similarOffer);
