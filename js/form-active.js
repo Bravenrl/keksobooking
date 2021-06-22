@@ -67,6 +67,5 @@ const makesFormActive = () => {
   mapFieldset.removeAttribute('disabled');
 };
 
+
 export {makesFormInactive, makesFormActive};
-
-
