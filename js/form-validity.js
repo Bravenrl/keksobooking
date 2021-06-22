@@ -5,8 +5,24 @@ const setFormValidation = () => {
   const MAX_PRICE_VALUE = 1000000;
   const titleInput = document.querySelector('#title');
   const priceInput = document.querySelector('#price');
+  const typeInput = document.querySelector('#type');
   const roomsInput = document.querySelector('#room_number');
   const guestsInput = document.querySelector('#capacity');
+  const timeInInput = document.querySelector('#timein');
+  const timeOutInput = document.querySelector('#timeout');
+  const timeInOption = timeInInput.querySelectorAll('option');
+  const timeOutOption = timeOutInput.querySelectorAll('option');
+
+  // получает минимальную цену в зависимости от типа жилья
+  const getTypePrice = (type) => {
+    switch(type) {
+      case 'palace' : return '10000';
+      case 'flat' : return '1000';
+      case 'house' : return '5000';
+      case  'bungalow' : return '0';
+      case  'hotel' : return '3000';
+    }
+  };
 
   //проверка соответствия количества гостей и комнат
   const isGuestValidity = () => {
@@ -23,6 +39,14 @@ const setFormValidation = () => {
   titleInput.setAttribute('minlength',`${MIN_TITLE_LENGTH}`);
   titleInput.setAttribute('maxlength',`${MAX_TITLE_LENGTH}`);
   priceInput.setAttribute('max', `${MAX_PRICE_VALUE}`);
+  priceInput.setAttribute('min', `${getTypePrice(typeInput.value)}`);
+  priceInput.placeholder = getTypePrice(typeInput.value);
+
+  //меняет плэйсхолдер и мин границу у поля ввода цены
+  typeInput.addEventListener('change', () => {
+    priceInput.setAttribute('min', `${getTypePrice(typeInput.value)}`);
+    priceInput.placeholder = getTypePrice(typeInput.value);
+  });
 
   //кастомная валидация поля описание объявления
   titleInput.addEventListener('input', () => {
@@ -37,13 +61,36 @@ const setFormValidation = () => {
     titleInput.reportValidity();
   });
 
+  //кастомная валидация поля ввода цены
+  priceInput.addEventListener('input', () => {
+    const minPriceValue = getTypePrice(typeInput.value);
+    const priceValue = priceInput.value;
+    if (priceValue < minPriceValue) {
+      priceInput.setCustomValidity(`Минимальная цена ${minPriceValue} руб.`);
+    } else if (priceValue > MAX_PRICE_VALUE) {
+      priceInput.setCustomValidity(`Максимальная цена ${MAX_PRICE_VALUE} руб.`);
+    } else {
+      priceInput.setCustomValidity('');
+    }
+    priceInput.reportValidity();
+  });
 
   //валидация полей rooms & guests
   guestsInput.value = '1';
-  guestsInput.addEventListener('change', isGuestValidity);
-  roomsInput.addEventListener('change', isGuestValidity);
+  guestsInput.addEventListener('change',isGuestValidity);
+  roomsInput.addEventListener('change',isGuestValidity);
 
-
+  //валидация времени заезда-выезда
+  timeInInput.addEventListener('change', () => {
+    timeOutOption.forEach((option) => {
+      (option.value===timeInInput.value)? option.selected = true : option.selected = false;
+    });
+  });
+  timeOutInput.addEventListener('change', () => {
+    timeInOption.forEach((option) => {
+      (option.value===timeOutInput.value)? option.selected = true : option.selected = false;
+    });
+  });
 };
 
 export {setFormValidation};
