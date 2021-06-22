@@ -9,7 +9,9 @@ const setFormValidation = () => {
   const guestsInput = document.querySelector('#capacity');
 
   //проверка соответствия количества гостей и комнат
-  const isGuestValidity = (rooms, guests) => {
+  const isGuestValidity = () => {
+    const rooms = roomsInput.value;
+    const guests = guestsInput.value;
     if ( guests>rooms&&guests!=='0'&&rooms!=='100') {guestsInput.setCustomValidity(`Не более ${rooms} гостя`);
     } else if (rooms === '100' && guests !=='0') {guestsInput.setCustomValidity('Это не для гостей');
     } else if (rooms !=='100' && guests === '0') {guestsInput.setCustomValidity('Нужно 100 комнат');
@@ -38,8 +40,8 @@ const setFormValidation = () => {
 
   //валидация полей rooms & guests
   guestsInput.value = '1';
-  guestsInput.addEventListener('change', () => {isGuestValidity(roomsInput.value, guestsInput.value);});
-  roomsInput.addEventListener('change', () => {isGuestValidity(roomsInput.value, guestsInput.value);});
+  guestsInput.addEventListener('change', isGuestValidity);
+  roomsInput.addEventListener('change', isGuestValidity);
 
 
 };
