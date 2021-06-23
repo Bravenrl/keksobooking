@@ -15,10 +15,10 @@ const getRandomNumberFloat = function (value1, value2, float = 1) {
 };
 
 //Случайный элемент из массива
-const getRandomArrayElement = (elements) => elements[getRandomNumberInt(0,elements.length-1)];  //Случайные элементы из массива
+const getRandomArrayElement = (elements) => elements[getRandomNumberInt(0,elements.length-1)];
 
 //Массив случайной длины с неповторяющимися элементами
-const getRandomArrayNonRepeat = (elements) => {                                                 //Массив случайной длины с неповторяющимися элементами
+const getRandomArrayNonRepeat = (elements) => {
   const arrayNonRepeat = new Array(getRandomNumberInt(0,elements.length-1)).fill(null);
   const sortArrayNonRepeat = new Array();
   arrayNonRepeat.forEach((value1, index) => {
