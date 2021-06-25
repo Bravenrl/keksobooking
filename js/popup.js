@@ -1,11 +1,7 @@
-import {similarOffersNiarby} from './data.js';
-
-
-const mapCanvas = document.querySelector('#map-canvas');
-const similarOfferTamplate = document.querySelector('#card').content.querySelector('.popup');
-const similarOfferFragment = document.createDocumentFragment();
-
-similarOffersNiarby.forEach(({author, offer}) => {
+const createPopupOffer = (offerElement) =>{
+  const similarOfferTamplate = document.querySelector('#card').content.querySelector('.popup');
+  const offer = offerElement.offer;
+  const author = offerElement.author;
   const similarOffer = similarOfferTamplate.cloneNode(true);
   const popupFeautures = similarOffer.querySelector('.popup__features');
   const features = offer.features.map((feature) => `popup__feature--${feature}`);
@@ -72,10 +68,7 @@ similarOffersNiarby.forEach(({author, offer}) => {
   popupPhotos.firstElementChild.remove();
 
   checkingDataAvailability();
-  similarOfferFragment.appendChild(similarOffer);
-} );
+  return similarOffer;
+};
 
-
-mapCanvas.appendChild(similarOfferFragment.firstChild);
-
-
+export {createPopupOffer};

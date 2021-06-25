@@ -28,8 +28,8 @@ const PHOTOS = [
 
 let avatarImgNumber = 1;
 
-const getImgAvatarNumber = () => (avatarImgNumber<=10) ? `img/avatars/user0${avatarImgNumber++}.png` : ''; //Номер фото
-
+const getImgAvatarNumber = () => (avatarImgNumber<10) ? `img/avatars/user0${avatarImgNumber++}.png` : `img/avatars/user${avatarImgNumber++}.png`; //Номер фото
+let offerTitleCounter = 1;
 const createOfferNiarby = () => {
   const offerPhoto = new Array(getRandomNumberInt(0,10)).fill(null).map(() => getRandomArrayElement(PHOTOS));
   const author = new Object();
@@ -38,7 +38,7 @@ const createOfferNiarby = () => {
   location.lat = getRandomNumberFloat(35.65, 35.7, 5);
   location.lng = getRandomNumberFloat(139.7, 139.8, 5);
   const offer = new Object();
-  offer.title = 'Лучшее Предложение';
+  offer.title = `Лучшее Предложение ${offerTitleCounter++}`;
   offer.address = `${location.lat}, ${location.lng}`;
   offer.price = getRandomNumberInt(0,100000);
   offer.type = getRandomArrayElement(TYPE);
