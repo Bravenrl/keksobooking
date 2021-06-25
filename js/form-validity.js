@@ -10,8 +10,8 @@ const setFormValidation = () => {
   const guestsInput = document.querySelector('#capacity');
   const timeInInput = document.querySelector('#timein');
   const timeOutInput = document.querySelector('#timeout');
-  const timeInOption = timeInInput.querySelectorAll('option');
-  const timeOutOption = timeOutInput.querySelectorAll('option');
+  const timeInOptions = timeInInput.querySelectorAll('option');
+  const timeOutOptions = timeOutInput.querySelectorAll('option');
 
   // получает минимальную цену в зависимости от типа жилья
   const getTypePrice = (type) => {
@@ -82,12 +82,12 @@ const setFormValidation = () => {
 
   //валидация времени заезда-выезда
   timeInInput.addEventListener('change', () => {
-    timeOutOption.forEach((option) => {
+    timeOutOptions.forEach((option) => {
       (option.value===timeInInput.value)? option.selected = true : option.selected = false;
     });
   });
   timeOutInput.addEventListener('change', () => {
-    timeInOption.forEach((option) => {
+    timeInOptions.forEach((option) => {
       (option.value===timeOutInput.value)? option.selected = true : option.selected = false;
     });
   });
