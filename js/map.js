@@ -39,7 +39,7 @@ const mainPinMarker = L.marker(
 // задает адресс по умолчанию и обработчик события
 const defaultAddress = mainPinMarker.getLatLng();
 addressInput.value=`${defaultAddress.lat.toFixed(5)}, ${defaultAddress.lng.toFixed(5)}`;
-mainPinMarker.on('moveend', (evt) => {
+mainPinMarker.on('move', (evt) => {
   const newAddress = evt.target.getLatLng();
   addressInput.value=`${newAddress.lat.toFixed(5)}, ${newAddress.lng.toFixed(5)}`;
 });

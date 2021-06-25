@@ -1,10 +1,5 @@
-import {similarOffersNiarby} from './data.js';
-
-const similarOfferTamplate = document.querySelector('#card').content.querySelector('.popup');
-const similarOfferFragment = document.createDocumentFragment();
-
-
 const createPopupOffer = (offerElement) =>{
+  const similarOfferTamplate = document.querySelector('#card').content.querySelector('.popup');
   const offer = offerElement.offer;
   const author = offerElement.author;
   const similarOffer = similarOfferTamplate.cloneNode(true);
@@ -75,9 +70,5 @@ const createPopupOffer = (offerElement) =>{
   checkingDataAvailability();
   return similarOffer;
 };
-
-similarOffersNiarby.forEach((offer) => {
-  similarOfferFragment.appendChild(createPopupOffer(offer));
-});
 
 export {createPopupOffer};
