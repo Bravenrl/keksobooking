@@ -17,7 +17,7 @@ const createPopupOffer = (offerElement) => {
   const popupAvatar = similarOffer.querySelector('.popup__avatar');
 
   //проверяет наличие данных
-  const checkingDataAvailability = (feautures, photos, type) => {
+  const checkDataAvailability = (feautures, photos, type) => {
     if (!offer.title) {popupTitle.remove();}
     else {popupTitle.textContent = offer.title;}
     if (!offer.address) {popupAddress.remove();
@@ -76,7 +76,7 @@ const createPopupOffer = (offerElement) => {
     }
   };
 
-  checkingDataAvailability(getFeatures, getPhotos, getType);
+  checkDataAvailability(getFeatures, getPhotos, getType);
   return similarOffer;
 };
 

@@ -1,5 +1,4 @@
 import { sendData } from './api.js';
-import { setFormValidation } from './form-validation.js';
 import { resetMainPinMarker } from './map.js';
 import { isEscEvent } from './utils.js';
 
@@ -12,11 +11,10 @@ const mapForm = document.querySelector('.map__filters');
 
 
 //Сбрасывает значения страницы
-const resetingAll = () => {
+const resetAll = () => {
   offerForm.reset();
   mapForm.reset();
   resetMainPinMarker();
-  setFormValidation();
 };
 
 //действия для события Esc
@@ -29,12 +27,12 @@ const onShowMessageEscKeydown = (evt) => {
 
 //удаляет форму
 function closeMessageWindow () {
-  const message = body.lastChild.className;
+  const message = body.querySelector('.success');
   body.lastChild.remove();
   document.removeEventListener('keydown', onShowMessageEscKeydown);
   document.removeEventListener('click', closeMessageWindow);
-  if (message==='success') {
-    resetingAll();
+  if (message) {
+    resetAll();
   }
 }
 
@@ -49,10 +47,10 @@ function showMessageWindow (tamplate) {
 }
 
 //делает кнопку которая сбрасывает значения страницы
-const makeRsetAllButton = () => {
+const makeResetAllButton = () => {
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
-    resetingAll();
+    resetAll();
   });
 };
 
@@ -69,6 +67,6 @@ const setOfferFormSubmit = () => {
   });
 };
 
-export {setOfferFormSubmit, makeRsetAllButton};
+export {setOfferFormSubmit, makeResetAllButton};
 
 

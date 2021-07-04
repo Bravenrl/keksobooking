@@ -1,4 +1,4 @@
-import { makeRsetAllButton } from './form-action.js';
+import { makeResetAllButton } from './form-action.js';
 
 const form = document.querySelector('.ad-form');
 const fieldsetForms = form.querySelectorAll('fieldset');
@@ -62,7 +62,7 @@ const makesFormActive = () => {
     input.removeAttribute('disabled');
   });
   mapFieldset.removeAttribute('disabled');
-  makeRsetAllButton();
+  makeResetAllButton();
 };
 
 

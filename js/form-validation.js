@@ -50,7 +50,6 @@ const setFormValidation = () => {
   priceInput.setAttribute('max', `${MAX_PRICE_VALUE}`);
   priceInput.setAttribute('min', `${getTypePrice(typeInput.value)}`);
   priceInput.placeholder = getTypePrice(typeInput.value);
-  guestsInput.value = '1';
 
   //меняет плэйсхолдер и мин границу у поля ввода цены
   typeInput.addEventListener('change', () => {
@@ -92,7 +91,6 @@ const setFormValidation = () => {
   });
 
   //валидация полей rooms & guests
-  isGuestValidity();
   guestsInput.addEventListener('change',isGuestValidity);
   roomsInput.addEventListener('change',isGuestValidity);
 
