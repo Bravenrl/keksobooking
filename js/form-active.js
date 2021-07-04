@@ -1,11 +1,14 @@
+import { makeRsetAllButton } from './form-action.js';
+
+const form = document.querySelector('.ad-form');
+const fieldsetForms = form.querySelectorAll('fieldset');
+const mapFilter = document.querySelector('.map__filters');
+const mapSelects = mapFilter.querySelectorAll('select');
+const mapFieldset = mapFilter.querySelector('fieldset');
+const mapFieldsetInputs = mapFieldset.querySelectorAll('input');
+
 // делает неактивную форму
-const makesFormInactive = () => {
-  const form = document.querySelector('.ad-form');
-  const fieldsetForms = form.querySelectorAll('fieldset');
-  const mapFilter = document.querySelector('.map__filters');
-  const mapSelects = mapFilter.querySelectorAll('select');
-  const mapFieldset = mapFilter.querySelector('fieldset');
-  const mapFieldsetInputs = mapFieldset.querySelectorAll('input');
+const makesFormUnactive = () => {
   form.classList.add('ad-form--disabled');
   fieldsetForms.forEach((item) => {
     item.setAttribute('disabled','true');
@@ -35,12 +38,6 @@ const makesFormInactive = () => {
 
 // делает активную форму
 const makesFormActive = () => {
-  const form = document.querySelector('.ad-form');
-  const fieldsetForms = form.querySelectorAll('fieldset');
-  const mapFilter = document.querySelector('.map__filters');
-  const mapSelects = mapFilter.querySelectorAll('select');
-  const mapFieldset = mapFilter.querySelector('fieldset');
-  const mapFieldsetInputs = mapFieldset.querySelectorAll('input');
   form.classList.remove('ad-form--disabled');
   fieldsetForms.forEach((item) => {
     item.removeAttribute('disabled');
@@ -65,7 +62,8 @@ const makesFormActive = () => {
     input.removeAttribute('disabled');
   });
   mapFieldset.removeAttribute('disabled');
+  makeRsetAllButton();
 };
 
 
-export {makesFormInactive, makesFormActive};
+export {makesFormUnactive, makesFormActive};
