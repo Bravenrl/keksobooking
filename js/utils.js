@@ -1,34 +1,55 @@
-// Случайное целое
-const getRandomNumberInt = function (value1, value2) {
-  const low = Math.ceil(Math.min(Math.abs(value1), Math.abs(value2)));
-  const hight = Math.floor(Math.max(Math.abs(value1), Math.abs(value2)));
-  return Math.floor(Math.random() * (hight - low + 1)) + low;
-  // алгоритм функции взял тут: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+const ALERT_SHOW_TIME = 5000;
+
+//падежи комнат
+const getRoomEnding = (numberOfItem) => {
+  const itemWords = ['комнат', 'комнаты', 'комната'];
+  const number = numberOfItem%10;
+  if ((number>=5) || (number===0) || (numberOfItem>=11&&numberOfItem<=20)) {
+    return itemWords[0];
+  }
+  if (number > 1 && number < 5) {
+    return itemWords[1];
+  }
+  if (number===1) {
+    return itemWords[2];
+  }
 };
 
-//Случайно число с плавающей запятой
-const getRandomNumberFloat = function (value1, value2, float = 1) {
-  const low = Math.min(Math.abs(value1), Math.abs(value2));
-  const hight = Math.max(Math.abs(value1), Math.abs(value2));
-  const result = Math.random() * (hight - low) + low;
-  return +result.toFixed(float);
+//падежи гостей
+const getGuestEnding = (numberOfItem) => {
+  const itemWords = ['гостей', 'гостя'];
+  const number = numberOfItem%10;
+  if (number===1) {
+    return itemWords[1];
+  } else {
+    return itemWords[0];
+  }
 };
 
-//Случайный элемент из массива
-const getRandomArrayElement = (elements) => elements[getRandomNumberInt(0,elements.length-1)];
+//Показывает сообщение об ошибке запроса
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 200;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '10%';
+  alertContainer.style.top = '0%';
+  alertContainer.style.right = '10%';
+  alertContainer.style.height = '100px';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.lineHeight = '100px';
+  alertContainer.style.backgroundColor = 'orange';
 
-//Массив случайной длины с неповторяющимися элементами
-const getRandomArrayNonRepeat = (elements) => {
-  const arrayNonRepeat = new Array(getRandomNumberInt(0,elements.length-1)).fill(null);
-  const sortArrayNonRepeat = new Array();
-  arrayNonRepeat.forEach((value1, index) => {
-    const random = getRandomArrayElement(elements);
-    arrayNonRepeat[index] = (arrayNonRepeat.includes(random)) ? 0 : random;
-    if (arrayNonRepeat[index]!==0) {
-      sortArrayNonRepeat.push(arrayNonRepeat[index]);
-    }
-  });
-  return sortArrayNonRepeat;
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
 };
 
-export {getRandomNumberFloat, getRandomNumberInt, getRandomArrayElement, getRandomArrayNonRepeat};
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+export {getGuestEnding, getRoomEnding, showAlert, isEscEvent};

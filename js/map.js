@@ -1,5 +1,5 @@
-import {makesFormInactive, makesFormActive} from './form-active.js';
-import {similarOffersNiarby} from './data.js';
+import {makesFormUnactive, makesFormActive} from './form-active.js';
+import { setFormValidation } from './form-validation.js';
 import {createPopupOffer} from './popup.js';
 
 const TOKYO = {
@@ -8,10 +8,11 @@ const TOKYO = {
 
 const addressInput=document.querySelector('#address');
 
-makesFormInactive();
+makesFormUnactive();
 
 const map = L.map('map-canvas').on('load', () => {
   makesFormActive();
+  setFormValidation();
 }).setView(TOKYO,10);
 
 
@@ -44,6 +45,10 @@ mainPinMarker.on('move', (evt) => {
   addressInput.value=`${newAddress.lat.toFixed(5)}, ${newAddress.lng.toFixed(5)}`;
 });
 
+const resetMainPinMarker = () => {
+  mainPinMarker.setLatLng(TOKYO);
+};
+
 //coздает обычные метки
 const createUsualMarker = ((element) => {
   const usualPinIcon = L.icon({
@@ -64,7 +69,5 @@ const createUsualMarker = ((element) => {
   return usualPinMarker;
 });
 
-similarOffersNiarby.forEach((similarOffer)=>{
-  createUsualMarker(similarOffer);
-});
+export {createUsualMarker, resetMainPinMarker};
 
