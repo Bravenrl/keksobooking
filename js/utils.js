@@ -50,6 +50,7 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+//
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 export {getGuestEnding, getRoomEnding, showAlert, isEscEvent};

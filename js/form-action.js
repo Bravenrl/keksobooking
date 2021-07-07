@@ -1,4 +1,5 @@
 import { sendData } from './api.js';
+import { setDefaultValues } from './form-validation.js';
 import { resetMainPinMarker } from './map.js';
 import { isEscEvent } from './utils.js';
 
@@ -13,6 +14,7 @@ const mapForm = document.querySelector('.map__filters');
 //Сбрасывает значения страницы
 const resetAll = () => {
   offerForm.reset();
+  setDefaultValues();
   mapForm.reset();
   resetMainPinMarker();
 };
