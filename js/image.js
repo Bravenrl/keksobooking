@@ -32,7 +32,16 @@ const onChangePreviw = (chooser, preview) => {
   }
 };
 
+// сбрасывает превью фотографий
+const resetOfferFreviw = () => {
+  avatarPreview.src = 'img/muffin-grey.svg';
+  offerContainer.querySelector('img').src = '';
+
+};
+
 avatarChooser.addEventListener('change', onChangePreviw.bind(null, avatarChooser, avatarPreview));
 
 
 offerChooser.addEventListener('change', onChangePreviw.bind(null, offerChooser, offerPreviw()));
+
+export {resetOfferFreviw};
