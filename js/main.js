@@ -1,21 +1,26 @@
-import {createUsualMarker} from './map.js';
+import './map.js';
 import {getData} from './api.js';
 import {showAlert} from './utils.js';
-import {setOfferFormSubmit} from './form-action.js';
+import {onSubmitOfferForm} from './form-action.js';
+import {makeFilterFormActive} from './form-active.js';
+import { onChangeFilterForm, showSimilarOffers } from './map-filter.js';
+import { debounce } from './utils/debounce.js';
 
-const SIMILAR_OFFERS_COUNT = 10;
+const RERENDER_DELAY = 500;
 
 //отрисовывает полученные данные на карте или окно с ошибкой
 getData(
   (similarOffers) => {
-    similarOffers.slice(0, SIMILAR_OFFERS_COUNT)
-      .forEach((offer) => {
-        createUsualMarker(offer);
-      });
+    showSimilarOffers(similarOffers);
+    onChangeFilterForm(debounce(()=>showSimilarOffers(similarOffers),
+      RERENDER_DELAY,
+    ));
+    makeFilterFormActive();
   },
   (message) => {
     message = 'При загрузке данных произошла ошибка';
     showAlert(message);
   });
 
-setOfferFormSubmit();
+onSubmitOfferForm();
+

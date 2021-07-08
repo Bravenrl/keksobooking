@@ -1,6 +1,9 @@
-import { sendData } from './api.js';
+import { getData, sendData } from './api.js';
+import { setDefaultValues } from './form-validation.js';
+import { showSimilarOffers } from './map-filter.js';
 import { resetMainPinMarker } from './map.js';
 import { isEscEvent } from './utils.js';
+
 
 const body = document.querySelector('body');
 const offerForm = document.querySelector('.ad-form');
@@ -13,8 +16,10 @@ const mapForm = document.querySelector('.map__filters');
 //Сбрасывает значения страницы
 const resetAll = () => {
   offerForm.reset();
+  setDefaultValues();
   mapForm.reset();
   resetMainPinMarker();
+  getData((similarOffers) => showSimilarOffers(similarOffers));
 };
 
 //действия для события Esc
@@ -47,7 +52,7 @@ function showMessageWindow (tamplate) {
 }
 
 //делает кнопку которая сбрасывает значения страницы
-const makeResetAllButton = () => {
+const onClickResetAllButton = () => {
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     resetAll();
@@ -55,7 +60,7 @@ const makeResetAllButton = () => {
 };
 
 //обрабатывет submit формы и отправляет данные
-const setOfferFormSubmit = () => {
+const onSubmitOfferForm = () => {
   offerForm.addEventListener ('submit', (evt) => {
     evt.preventDefault();
     const data = new FormData(evt.target);
@@ -67,6 +72,4 @@ const setOfferFormSubmit = () => {
   });
 };
 
-export {setOfferFormSubmit, makeResetAllButton};
-
-
+export {onSubmitOfferForm, onClickResetAllButton};

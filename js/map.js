@@ -1,4 +1,4 @@
-import {makesFormUnactive, makesFormActive} from './form-active.js';
+import {makeAllFormUnactive, makeOfferFormActive} from './form-active.js';
 import { setFormValidation } from './form-validation.js';
 import {createPopupOffer} from './popup.js';
 
@@ -8,20 +8,22 @@ const TOKYO = {
 
 const addressInput=document.querySelector('#address');
 
-makesFormUnactive();
+makeAllFormUnactive();
 
-const map = L.map('map-canvas').on('load', () => {
-  makesFormActive();
-  setFormValidation();
-}).setView(TOKYO,10);
+const map = L.map('map-canvas')
+  .on('load', () => {
+    makeOfferFormActive();
+    setFormValidation();
+  })
+  .setView(TOKYO,10);
 
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
+  })
+  .addTo(map);
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
@@ -49,25 +51,25 @@ const resetMainPinMarker = () => {
   mainPinMarker.setLatLng(TOKYO);
 };
 
-//coздает обычные метки
-const createUsualMarker = ((element) => {
-  const usualPinIcon = L.icon({
+// coздает обычные метки
+const createSimpleMarker = ((element) => {
+  const simplePinIcon = L.icon({
     iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
-
-  const usualPinMarker = L.marker(
+  const simplePinMarker = L.marker(
     element.location,
     {
-      icon: usualPinIcon,
+      icon: simplePinIcon,
     },
   ).addTo(map)
     .bindPopup(createPopupOffer(element),
       {keepInView: true,
       });
-  return usualPinMarker;
+  return simplePinMarker;
 });
 
-export {createUsualMarker, resetMainPinMarker};
+
+export {createSimpleMarker, resetMainPinMarker};
 
