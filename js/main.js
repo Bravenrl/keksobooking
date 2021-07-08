@@ -1,10 +1,12 @@
 import './map.js';
+import './image.js';
 import {getData} from './api.js';
 import {showAlert} from './utils.js';
 import {onSubmitOfferForm} from './form-action.js';
 import {makeFilterFormActive} from './form-active.js';
 import { onChangeFilterForm, showSimilarOffers } from './map-filter.js';
 import { debounce } from './utils/debounce.js';
+
 
 const RERENDER_DELAY = 500;
 
