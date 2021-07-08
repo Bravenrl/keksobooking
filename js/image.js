@@ -8,9 +8,12 @@ const offerContainer = document.querySelector('.ad-form__photo');
 
 // создает тег img для фото
 const offerPreviw = () => {
+  if (offerContainer.firstChild) {
+    offerContainer.firstChild.remove();
+  }
   const photo = document.createElement('img');
-  photo.height = '70';
-  photo.width = '70';
+  photo.height = '250';
+  photo.width = '250';
   offerContainer.appendChild(photo);
   return photo;
 };
@@ -35,13 +38,17 @@ const onChangePreviw = (chooser, preview) => {
 // сбрасывает превью фотографий
 const resetOfferFreviw = () => {
   avatarPreview.src = 'img/muffin-grey.svg';
-  offerContainer.querySelector('img').src = '';
-
+  if (offerContainer.firstChild) {
+    offerContainer.firstChild.remove();
+  }
 };
 
 avatarChooser.addEventListener('change', onChangePreviw.bind(null, avatarChooser, avatarPreview));
 
 
-offerChooser.addEventListener('change', onChangePreviw.bind(null, offerChooser, offerPreviw()));
+offerChooser.addEventListener('change', () => {
+  onChangePreviw(offerChooser, offerPreviw());
+});
 
 export {resetOfferFreviw};
+
