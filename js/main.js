@@ -1,9 +1,9 @@
 import './map.js';
 import {getData} from './api.js';
 import {showAlert} from './utils.js';
-import {setOfferFormSubmit} from './form-action.js';
+import {onSubmitOfferForm} from './form-action.js';
 import {makeFilterFormActive} from './form-active.js';
-import { setFilterForm, showSimilarOffers } from './map-filter.js';
+import { onChangeFilterForm, showSimilarOffers } from './map-filter.js';
 import { debounce } from './utils/debounce.js';
 
 const RERENDER_DELAY = 500;
@@ -12,7 +12,7 @@ const RERENDER_DELAY = 500;
 getData(
   (similarOffers) => {
     showSimilarOffers(similarOffers);
-    setFilterForm(debounce(()=>showSimilarOffers(similarOffers),
+    onChangeFilterForm(debounce(()=>showSimilarOffers(similarOffers),
       RERENDER_DELAY,
     ));
     makeFilterFormActive();
@@ -22,4 +22,5 @@ getData(
     showAlert(message);
   });
 
-setOfferFormSubmit();
+onSubmitOfferForm();
+

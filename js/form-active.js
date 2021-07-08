@@ -1,4 +1,4 @@
-import { makeResetAllButton } from './form-action.js';
+import { onClickResetAllButton } from './form-action.js';
 
 const form = document.querySelector('.ad-form');
 const fieldsetForms = form.querySelectorAll('fieldset');
@@ -26,7 +26,7 @@ const makeOfferFormActive = () => {
   fieldsetForms.forEach((item) => {
     item.disabled = false;
   });
-  makeResetAllButton();
+  onClickResetAllButton();
 };
 
 // делает активную форму фильтрации меток карты
