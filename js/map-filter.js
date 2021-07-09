@@ -3,14 +3,12 @@ import { createSimpleMarker} from './map.js';
 const OFFER_QUANTITY = 10;
 
 const createdOffers = new Array;
-const selectedFeatures = new Array;
 const filterForm = document.querySelector('.map__filters');
 const housingTypeSelect = filterForm.querySelector('#housing-type');
 const housingPriceSelect = filterForm.querySelector('#housing-price');
 const housingRoomsSelect = filterForm.querySelector('#housing-rooms');
 const housingGuestsSelect = filterForm.querySelector('#housing-guests');
 const housingFeaturesFieldset = filterForm.querySelector('#housing-features');
-const featuresInputs = housingFeaturesFieldset.querySelectorAll('input');
 
 //устанавливает обработчик на форму
 const onChangeFilterForm = (showOffers) => filterForm.addEventListener ('change', showOffers);
@@ -40,23 +38,17 @@ const checkFilterGuest = (element) => (+housingGuestsSelect.value === element.of
 
 // фильтрация для удобств
 const checkFilterFeatures = (element) => {
-  selectedFeatures.length = 0;
+  const featuresInputs = housingFeaturesFieldset.querySelectorAll('.map__checkbox:checked');
   let result = false;
   let counter = 0;
 
-  featuresInputs.forEach((input) => {
-    if (input.checked) {
-      selectedFeatures.push(input.value);
-    }
-  });
-
-  if (selectedFeatures.length===0) {
+  if (featuresInputs.length===0) {
     result=true;
   } else if (element.offer.features) {
-    selectedFeatures.forEach((feature) => {
-      (element.offer.features.includes(feature))?counter++ : counter;
+    featuresInputs.forEach((imput) => {
+      (element.offer.features.includes(imput.value))?counter++ : counter;
     });
-    result = (counter===selectedFeatures.length);
+    result = (counter===featuresInputs.length);
   }
   return result;
 };
