@@ -63,7 +63,8 @@ checkFilterFeatures(element);
 
 // Показзывает объявлеиня по заданному фильтру
 const showSimilarOffers = (similarOffers) => {
-  createdOffers.forEach((offer)=>{offer.remove();
+  createdOffers.forEach((offer) => {
+    offer.remove();
   });
   createdOffers.length = 0;
 
