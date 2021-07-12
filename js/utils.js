@@ -1,28 +1,29 @@
 const ALERT_SHOW_TIME = 5000;
+const ROOMS = ['комнат', 'комнаты', 'комната'];
+const GUESTS = ['гостей', 'гостя'];
+
 
 //падежи комнат
-const getRoomEnding = (numberOfItem) => {
-  const itemWords = ['комнат', 'комнаты', 'комната'];
-  const number = numberOfItem%10;
-  if ((number>=5) || (number===0) || (numberOfItem>=11&&numberOfItem<=20)) {
-    return itemWords[0];
+const getRoomEnding = (numberOfRoom) => {
+  const number = numberOfRoom%10;
+  if ((number>=5) || (number===0) || (numberOfRoom>=11&&numberOfRoom<=20)) {
+    return ROOMS[0];
   }
   if (number > 1 && number < 5) {
-    return itemWords[1];
+    return ROOMS[1];
   }
   if (number===1) {
-    return itemWords[2];
+    return ROOMS[2];
   }
 };
 
 //падежи гостей
 const getGuestEnding = (numberOfItem) => {
-  const itemWords = ['гостей', 'гостя'];
   const number = numberOfItem%10;
   if (number===1) {
-    return itemWords[1];
+    return GUESTS[1];
   } else {
-    return itemWords[0];
+    return GUESTS[0];
   }
 };
 

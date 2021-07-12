@@ -36,21 +36,32 @@ const checkFilterRoom = (element) => (+housingRoomsSelect.value === element.offe
 const checkFilterGuest = (element) => (+housingGuestsSelect.value === element.offer.guests)||
 (housingGuestsSelect.value==='any');
 
-// фильтрация для удобств
+//фильтрация для удобств Вариант1
+// const checkFilterFeatures = (element) => {
+//   const featuresInputs = housingFeaturesFieldset.querySelectorAll('.map__checkbox:checked');
+//   let result = false;
+//   let counter = 0;
+
+//   if (featuresInputs.length===0) {
+//     result = true;
+//   } else if (element.offer.features) {
+//     featuresInputs.forEach((input) => {
+//       (element.offer.features.includes(input.value))?counter++ : counter;
+//     });
+//     result = (counter===featuresInputs.length);
+//   }
+//   return result;
+// };
+
+
+//фильтрация для удобств Вариант2
 const checkFilterFeatures = (element) => {
   const featuresInputs = housingFeaturesFieldset.querySelectorAll('.map__checkbox:checked');
-  let result = false;
-  let counter = 0;
-
-  if (featuresInputs.length===0) {
-    result=true;
-  } else if (element.offer.features) {
-    featuresInputs.forEach((imput) => {
-      (element.offer.features.includes(imput.value))?counter++ : counter;
-    });
-    result = (counter===featuresInputs.length);
+  if ((element.offer.features)&&(featuresInputs.length!==0)) {
+    return featuresInputs.every((input) => element.offer.features.includes(input.value));
+  //тут почему-то input.value === undefined
   }
-  return result;
+  return true;
 };
 
 // фильтрация для всех полей

@@ -19,7 +19,7 @@ const offerPreviw = () => {
 };
 
 // показывает превью при загрузке фото
-const onChangePreviw = (chooser, preview) => {
+const onPreviwChange = (chooser, preview) => {
   const file = chooser.files[0];
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((type) => fileName.endsWith(type));
@@ -43,11 +43,11 @@ const resetOfferFreviw = () => {
   }
 };
 
-avatarChooser.addEventListener('change', onChangePreviw.bind(null, avatarChooser, avatarPreview));
+avatarChooser.addEventListener('change', onPreviwChange.bind(null, avatarChooser, avatarPreview));
 
 
 offerChooser.addEventListener('change', () => {
-  onChangePreviw(offerChooser, offerPreviw());
+  onPreviwChange(offerChooser, offerPreviw());
 });
 
 export {resetOfferFreviw};

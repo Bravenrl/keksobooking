@@ -28,16 +28,16 @@ const resetAll = () => {
 const onShowMessageEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
-    closeMessageWindow();
+    onShowMessageClick();
   }
 };
 
 //удаляет форму
-function closeMessageWindow () {
+function onShowMessageClick () {
   const message = body.querySelector('.success');
   body.lastChild.remove();
   document.removeEventListener('keydown', onShowMessageEscKeydown);
-  document.removeEventListener('click', closeMessageWindow);
+  document.removeEventListener('click', onShowMessageClick);
   if (message) {
     resetAll();
   }
@@ -47,9 +47,9 @@ function closeMessageWindow () {
 function showMessageWindow (tamplate) {
   const message = body.appendChild(tamplate);
   document.addEventListener('keydown', onShowMessageEscKeydown);
-  document.addEventListener('click', closeMessageWindow);
+  document.addEventListener('click', onShowMessageClick);
   if (message.className==='error') {
-    message.querySelector('.error__button').addEventListener('click', closeMessageWindow);
+    message.querySelector('.error__button').addEventListener('click', onShowMessageClick);
   }
 }
 

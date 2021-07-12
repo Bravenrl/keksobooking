@@ -24,7 +24,7 @@ const getTypePrice = (type) => {
 };
 
 //валидация количества гостей и комнат
-const setGuestValid = () => {
+const onGuestChange = () => {
   const rooms = +roomsInput.value;
   const guests = +guestsInput.value;
   if ( guests>rooms&&guests!==0&&rooms!==100) {
@@ -44,7 +44,7 @@ const setGuestValid = () => {
 };
 
 //кастомная валидация поля ввода цены
-const setPriceValid = () => {
+const onPriceValid = () => {
   const minPriceValue = +getTypePrice(typeInput.value);
   const priceValue = +priceInput.value;
   if (priceValue < minPriceValue) {
@@ -61,7 +61,7 @@ const setPriceValid = () => {
 };
 
 //кастомная валидация поля описание объявления
-const setTitleValid = () => {
+const onTitleInput = () => {
   const valueLength = titleInput.value.length;
   if (valueLength < MIN_TITLE_LENGTH) {
     titleInput.style.borderColor = 'red';
@@ -85,18 +85,18 @@ const setDefaultValues = () => {
 const setFormValidation = () => {
   setDefaultValues();
   //валидация поля заголовка
-  titleInput.addEventListener('input', setTitleValid);
+  titleInput.addEventListener('input', onTitleInput);
 
   //валидация поля ввода цены
-  priceInput.addEventListener('input', setPriceValid);
+  priceInput.addEventListener('input', onPriceValid);
   typeInput.addEventListener('change', () => {
-    setPriceValid();
+    onPriceValid();
     priceInput.placeholder = getTypePrice(typeInput.value);
   });
 
   //валидация полей rooms & guests
-  guestsInput.addEventListener('change',setGuestValid);
-  roomsInput.addEventListener('change',setGuestValid);
+  guestsInput.addEventListener('change',onGuestChange);
+  roomsInput.addEventListener('change',onGuestChange);
 
   //валидация времени заезда-выезда
   timeInInput.addEventListener('change', () => {

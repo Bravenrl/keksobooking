@@ -45,15 +45,14 @@ const createPopupOffer = (offerElement) => {
   //получает все доступные удобства
   const getFeatures = (offerFeatures) => {
     const features = offerFeatures.map((feature) => `popup__feature--${feature}`);
-    features.forEach(() => {
-      popupFeautures.querySelectorAll('.popup__feature').
-        forEach((item) => {
-          const elementClass = item.classList[1];
-          if (!features.includes(elementClass)) {
-            item.remove();
-          }
-        });
-    });
+    popupFeautures.querySelectorAll('.popup__feature').
+      forEach((item) => {
+        const elementClass = item.classList;
+        const lastClass = elementClass[elementClass.length-1];
+        if (!features.includes(lastClass)) {
+          item.remove();
+        }
+      });
   };
 
   //получает фото
