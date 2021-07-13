@@ -1,6 +1,26 @@
 import { createSimpleMarker} from './map.js';
 
 const OFFER_QUANTITY = 10;
+const ANY_VALUE = 'any';
+
+const PriceRange = {
+  low: {
+    from: 0,
+    to: 10000,
+  },
+  middle: {
+    from: 10000,
+    to: 50000,
+  },
+  high: {
+    from: 50000,
+    to: Infinity,
+  },
+  any: {
+    from: 0,
+    to: Infinity,
+  },
+};
 
 const createdOffers = new Array;
 const filterForm = document.querySelector('.map__filters');
@@ -14,54 +34,33 @@ const housingFeaturesFieldset = filterForm.querySelector('#housing-features');
 const onChangeFilterForm = (showOffers) => filterForm.addEventListener ('change', showOffers);
 
 
-// фильтрация для типа жилья
-const checkFilterType = (element) => (element.offer.type === housingTypeSelect.value)||
-(housingTypeSelect.value==='any');
-
-
 // фильтрация для цены
 const checkFiterPrice = (element) => {
   const price = element.offer.price;
-  return ((housingPriceSelect.value==='middle')&&(price>=10000)&&(price<=50000))||
-  ((housingPriceSelect.value==='low')&&(price<10000))||
-  ((housingPriceSelect.value==='high')&&(price>50000))||
-  (housingPriceSelect.value==='any');
+  if (PriceRange[housingPriceSelect.value]) {
+    return (price>=PriceRange[housingPriceSelect.value].from)&&
+    (price<=PriceRange[housingPriceSelect.value].to);
+  }
 };
 
+// фильтрация для типа жилья
+const checkFilterType = (element) => (element.offer.type === housingTypeSelect.value)||
+(housingTypeSelect.value===ANY_VALUE);
 // фильтрация для комнат
 const checkFilterRoom = (element) => (+housingRoomsSelect.value === element.offer.rooms)||
-(housingRoomsSelect.value==='any');
-
+(housingRoomsSelect.value===ANY_VALUE);
 // фильтрация для гостей
 const checkFilterGuest = (element) => (+housingGuestsSelect.value === element.offer.guests)||
-(housingGuestsSelect.value==='any');
+(housingGuestsSelect.value===ANY_VALUE);
 
-//фильтрация для удобств Вариант1
-// const checkFilterFeatures = (element) => {
-//   const featuresInputs = housingFeaturesFieldset.querySelectorAll('.map__checkbox:checked');
-//   let result = false;
-//   let counter = 0;
-
-//   if (featuresInputs.length===0) {
-//     result = true;
-//   } else if (element.offer.features) {
-//     featuresInputs.forEach((input) => {
-//       (element.offer.features.includes(input.value))?counter++ : counter;
-//     });
-//     result = (counter===featuresInputs.length);
-//   }
-//   return result;
-// };
-
-
-//фильтрация для удобств Вариант2
+//фильтрация для удобств
 const checkFilterFeatures = (element) => {
-  const featuresInputs = housingFeaturesFieldset.querySelectorAll('.map__checkbox:checked');
-  if ((element.offer.features)&&(featuresInputs.length!==0)) {
+  const featuresInputs = [...housingFeaturesFieldset.querySelectorAll('.map__checkbox:checked')];
+  if (featuresInputs.length===0) {
+    return true;
+  } else if (element.offer.features) {
     return featuresInputs.every((input) => element.offer.features.includes(input.value));
-  //тут почему-то input.value === undefined
   }
-  return true;
 };
 
 // фильтрация для всех полей

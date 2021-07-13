@@ -2,6 +2,21 @@
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_VALUE = 1000000;
+const GUEST_DEFAULT_VAL = 1;
+
+const HousingPrice = {
+  palace: 10000,
+  flat: 1000,
+  house: 5000,
+  bungalow: 0,
+  hotel: 3000,
+};
+
+const Range = {
+  minGuest: 0,
+  maxRooms: 100,
+};
+
 const titleInput = document.querySelector('#title');
 const priceInput = document.querySelector('#price');
 const typeInput = document.querySelector('#type');
@@ -12,28 +27,17 @@ const timeOutInput = document.querySelector('#timeout');
 const timeInOptions = timeInInput.querySelectorAll('option');
 const timeOutOptions = timeOutInput.querySelectorAll('option');
 
-// получает минимальную цену в зависимости от типа жилья
-const getTypePrice = (type) => {
-  switch(type) {
-    case 'palace' : return '10000';
-    case 'flat' : return '1000';
-    case 'house' : return '5000';
-    case 'bungalow' : return '0';
-    case 'hotel' : return '3000';
-  }
-};
-
 //валидация количества гостей и комнат
 const onGuestChange = () => {
   const rooms = +roomsInput.value;
   const guests = +guestsInput.value;
-  if ( guests>rooms&&guests!==0&&rooms!==100) {
+  if ( guests>rooms&&guests!==Range.minGuest&&rooms!== Range.maxRooms) {
     guestsInput.style.borderColor = 'red';
     guestsInput.setCustomValidity(`Не более ${rooms} гостя`);
-  } else if (rooms === 100 && guests !==0) {
+  } else if (rooms === Range.maxRooms && guests !== Range.minGuest) {
     guestsInput.style.borderColor = 'red';
     guestsInput.setCustomValidity('Это не для гостей');
-  } else if (rooms !==100 && guests === 0) {
+  } else if (rooms !== Range.maxRooms && guests === Range.minGuest) {
     guestsInput.style.borderColor = 'red';
     guestsInput.setCustomValidity('Нужно 100 комнат');
   } else {
@@ -45,7 +49,7 @@ const onGuestChange = () => {
 
 //кастомная валидация поля ввода цены
 const onPriceValid = () => {
-  const minPriceValue = +getTypePrice(typeInput.value);
+  const minPriceValue = HousingPrice[typeInput.value];
   const priceValue = +priceInput.value;
   if (priceValue < minPriceValue) {
     priceInput.style.borderColor = 'red';
@@ -77,8 +81,8 @@ const onTitleInput = () => {
 };
 //установка значений по-умолчанию
 const setDefaultValues = () => {
-  priceInput.placeholder = getTypePrice(typeInput.value);
-  guestsInput.value = '1';
+  priceInput.placeholder = HousingPrice[typeInput.value];
+  guestsInput.value = GUEST_DEFAULT_VAL;
 };
 
 //валидация формы
@@ -91,7 +95,7 @@ const setFormValidation = () => {
   priceInput.addEventListener('input', onPriceValid);
   typeInput.addEventListener('change', () => {
     onPriceValid();
-    priceInput.placeholder = getTypePrice(typeInput.value);
+    priceInput.placeholder = HousingPrice[typeInput.value];
   });
 
   //валидация полей rooms & guests

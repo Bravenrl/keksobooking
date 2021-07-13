@@ -1,4 +1,8 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png', 'bmp'];
+const PhotoSize = {
+  height: 250,
+  width: 250,
+};
 
 const avatarChooser = document.querySelector('.ad-form-header__input');
 const avatarPreview = document.querySelector('.ad-form-header__preview img');
@@ -12,8 +16,8 @@ const offerPreviw = () => {
     offerContainer.firstChild.remove();
   }
   const photo = document.createElement('img');
-  photo.height = '250';
-  photo.width = '250';
+  photo.height = PhotoSize.height;
+  photo.width = PhotoSize.width;
   offerContainer.appendChild(photo);
   return photo;
 };

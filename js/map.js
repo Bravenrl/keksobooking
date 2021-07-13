@@ -20,6 +20,7 @@ const SIMPLE_PIN = {
 };
 
 const LAYER_OSM = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const ZOOM_LEVEL = 10;
 
 const addressInput=document.querySelector('#address');
 
@@ -30,7 +31,7 @@ const map = L.map('map-canvas')
     makeOfferFormActive();
     setFormValidation();
   })
-  .setView(TOKYO,10);
+  .setView(TOKYO, ZOOM_LEVEL);
 
 
 L.tileLayer(
@@ -79,4 +80,3 @@ const createSimpleMarker = ((element) => {
 
 
 export {createSimpleMarker, resetMainPinMarker};
-

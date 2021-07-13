@@ -9,6 +9,7 @@ import { debounce } from './utils/debounce.js';
 
 
 const RERENDER_DELAY = 500;
+const ALERT_MESSAGE = 'При загрузке данных произошла ошибка';
 
 //отрисовывает полученные данные на карте или окно с ошибкой
 getData(
@@ -20,9 +21,10 @@ getData(
     makeFilterFormActive();
   },
   (message) => {
-    message = 'При загрузке данных произошла ошибка';
+    message = ALERT_MESSAGE;
     showAlert(message);
   });
 
 onSubmitOfferForm();
+
 
