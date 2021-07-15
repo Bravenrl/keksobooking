@@ -3,7 +3,7 @@ const ROOMS_DECLEN = ['комнат', 'комнаты', 'комната'];
 const GUESTS_DECLEN = ['гостей', 'гостя'];
 
 const AlertStyle = {
-  zIndex: 200,
+  zIndex: '200',
   position: 'absolute',
   left: '10%',
   top: '0%',

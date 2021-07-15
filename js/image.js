@@ -1,7 +1,7 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png', 'bmp'];
 const PhotoSize = {
-  height: 250,
-  width: 250,
+  height: '250',
+  width: '250',
 };
 
 const avatarChooser = document.querySelector('.ad-form-header__input');

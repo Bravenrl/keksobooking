@@ -8,13 +8,13 @@ const HousingType = {
   hotel: 'Отель',
 };
 
-const similarOfferTamplate = document.querySelector('#card').content.querySelector('.popup');
+const similarOfferTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const createPopupOffer = (offerElement) => {
   const offer = offerElement.offer;
   const author = offerElement.author;
-  const similarOffer = similarOfferTamplate.cloneNode(true);
-  const popupFeautures = similarOffer.querySelector('.popup__features');
+  const similarOffer = similarOfferTemplate.cloneNode(true);
+  const popupFeatures = similarOffer.querySelector('.popup__features');
   const popupPhotos = similarOffer.querySelector('.popup__photos');
   const popupTitle = similarOffer.querySelector('.popup__title');
   const popupAddress = similarOffer.querySelector('.popup__text--address');
@@ -67,7 +67,7 @@ const createPopupOffer = (offerElement) => {
       popupAvatar.src = author.avatar;
     }
 
-    if (!offer.features) {popupFeautures.remove();
+    if (!offer.features) {popupFeatures.remove();
     } else {
       feautures(offer.features);
     }
@@ -89,7 +89,7 @@ const createPopupOffer = (offerElement) => {
   //получает все доступные удобства
   const getFeatures = (offerFeatures) => {
     const features = offerFeatures.map((feature) => `popup__feature--${feature}`);
-    popupFeautures.querySelectorAll('.popup__feature').
+    popupFeatures.querySelectorAll('.popup__feature').
       forEach((item) => {
         const elementClass = item.classList;
         const lastClass = elementClass[elementClass.length-1];

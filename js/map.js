@@ -65,7 +65,7 @@ const resetMainPinMarker = () => mainPinMarker.setLatLng(TOKYO);
 // coздает обычные метки
 const createSimpleMarker = ((element) => {
   const simplePinIcon = L.icon(SIMPLE_PIN);
-  const simplePinMarker = L.marker(
+  return L.marker(
     element.location,
     {
       icon: simplePinIcon,
@@ -75,7 +75,6 @@ const createSimpleMarker = ((element) => {
       {
         keepInView: true,
       });
-  return simplePinMarker;
 });
 
 

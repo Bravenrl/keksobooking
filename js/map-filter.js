@@ -22,7 +22,7 @@ const PriceRange = {
   },
 };
 
-const createdOffers = new Array;
+const createdOffers = [];
 const filterForm = document.querySelector('.map__filters');
 const housingTypeSelect = filterForm.querySelector('#housing-type');
 const housingPriceSelect = filterForm.querySelector('#housing-price');
@@ -35,7 +35,7 @@ const onChangeFilterForm = (showOffers) => filterForm.addEventListener ('change'
 
 
 // фильтрация для цены
-const checkFiterPrice = (element) => {
+const checkFilterPrice = (element) => {
   const price = element.offer.price;
   if (PriceRange[housingPriceSelect.value]) {
     return (price>=PriceRange[housingPriceSelect.value].from)&&
@@ -65,7 +65,7 @@ const checkFilterFeatures = (element) => {
 
 // фильтрация для всех полей
 const filterAll = (element) => checkFilterType(element)&&
-checkFiterPrice(element)&&
+checkFilterPrice(element)&&
 checkFilterRoom(element)&&
 checkFilterGuest(element)&&
 checkFilterFeatures(element);
