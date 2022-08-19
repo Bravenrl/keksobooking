@@ -1,6 +1,10 @@
-# Личный проект «Кексобукинг»
+# [Личный проект «Кексобукинг»](https://bravenrl.github.io/1781597-keksobooking-23/)
 
 * Студент: [Роман Лозинский](https://up.htmlacademy.ru/javascript/23/user/1781597).
+
+
+The beginning of learning JS. Page with form processing on vanilla js, fetching data, working with maps [Leaflet](https://leafletjs.com/).
+
 
 ## Техническое задание
   О проекте
